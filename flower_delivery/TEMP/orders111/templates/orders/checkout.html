@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Цветочный рай</title>
+
+{% load static %}
+
+<h2>Оформление заказа</h2>
+<ul>
+    {% for item in cart_items %}
+        <li>{{ item.flower.name }} - {{ item.quantity }} шт. - {{ item.total_price }} руб</li>
+    {% endfor %}
+</ul>
+<h3>Итого: {{ total_price }} руб</h3>
+<form method="POST">
+    {% csrf_token %}
+    <!-- Форма для ввода данных заказа -->
+    <input type="text" name="address" placeholder="Адрес доставки">
+    <button type="submit">Оформить заказ</button>
+</form>

@@ -1,0 +1,91 @@
+<html>
+<head>
+    <title>Добро пожаловать в Цветочный рай!</title>
+    <style>
+        /* Стиль для всего тела страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;  /* Цвет фона страницы */
+            margin: 0;
+            padding: 0;
+        }
+        /* Стиль для заголовка */
+        header {
+            background-color: #ff5a5f;  /* Цвет фона заголовка */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Контейнер для каталога букетов */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 20px;
+        }
+        /* Стиль для карточек букетов */
+        .flower-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            width: 280px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        /* Эффект при наведении на карточку */
+        .flower-card:hover {
+            transform: scale(1.05);
+        }
+        .flower-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .flower-card h3 {
+            color: #333;
+            margin: 10px 0;
+        }
+        .flower-card p {
+            color: #777;
+            font-size: 14px;
+            padding: 0 15px;
+        }
+        .flower-card .price {
+            font-size: 18px;
+            color: #ff5a5f;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в Цветочный рай!
+Доставка букетов по Москве и области бесплатно</h1>
+        <p>Просмотрите наш каталог и оформите заказ на понравившийся вам букет.</p>
+    </header>
+
+    <div class="container">
+        {% for flower in flowers %}
+            <div class="flower-card">
+                <img src="{{ flower.image.url }}" alt="{{ flower.name }}">
+                <h3>{{ flower.name }}</h3>
+                <p>{{ flower.description }}</p>
+                <div class="price">{{ flower.price }} руб</div>
+            </div>
+
+           <div class="flower-card">
+                <img src="{{ flower.image.url }}" alt="{{ flower.name }}">
+                <h3>{{ flower.name }}</h3>
+                <p>{{ flower.description }}</p>
+                <div class="price">{{ flower.price }} руб</div>
+    <!-- Кнопка для перехода к заказу -->
+                <a href="{% url 'order' flower.id %}" class="btn btn-primary">Оформить заказ</a>
+           </div>
+
+        {% endfor %}
+    </div>
+</body>
+</html>

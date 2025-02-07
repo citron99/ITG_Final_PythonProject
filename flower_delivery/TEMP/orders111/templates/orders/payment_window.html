@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Окно оплаты</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Оплата заказа</h1>
+
+        <h2>Информация о заказе</h2>
+        <p><strong>Дата доставки:</strong> {{ order.delivery_date }}</p>
+        <p><strong>Время доставки:</strong> {{ order.delivery_time }}</p>
+        <p><strong>Адрес доставки:</strong> {{ order.address }}</p>
+
+        <h3>Товары в заказе:</h3>
+        <ul>
+            {% for item in order.cart.items.all %}
+                <li>
+                    <strong>{{ item.flower.name }}</strong> - {{ item.quantity }} шт. - {{ item.flower.price }} руб.
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Итоговая стоимость: {{ order.cart.total_price }} руб.</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Подтвердить оплату</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+        <a href="{% url 'index' %}" class="btn-back">Вернуться на главную</a>
+    </div>
+</body>
+</html>

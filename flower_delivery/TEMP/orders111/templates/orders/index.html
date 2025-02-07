@@ -1,0 +1,140 @@
+<html>
+<head>
+    <title>Добро пожаловать в Цветочный рай!</title>
+
+    <!-- Подключаем тег static -->
+    {% load static %}
+
+    <!-- Подключаем favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f0ff; /* Светло-фиолетовый фон */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #6a0dad; /* Тёмно-фиолетовый */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .flower-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(106, 13, 173, 0.2); /* Фиолетовая тень */
+            margin: 15px;
+            width: 280px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .flower-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(106, 13, 173, 0.4); /* Увеличенная тень при наведении */
+        }
+        .flower-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .flower-card h3 {
+            color: #4b0082; /* Тёмно-фиолетовый */
+            margin: 10px 0;
+        }
+        .flower-card p {
+            color: #5d3f6a; /* Средне-фиолетовый */
+            font-size: 14px;
+            padding: 0 15px;
+        }
+        .flower-card .price {
+            font-size: 18px;
+            color: #6a0dad; /* Основной фиолетовый */
+            margin: 10px 0;
+        }
+        .flower-card a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #6a0dad; /* Фиолетовая кнопка */
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+        .flower-card a:hover {
+            background-color: #4b0082; /* Тёмно-фиолетовый при наведении */
+        }
+
+        .cart-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .cart-info a {
+            color: white;
+            background-color: #4b0082;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .login-btn {
+            background-color: #4b0082;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 20px 0;
+        }
+
+        .login-btn:hover {
+            background-color: #6a0dad;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в Цветочный рай!</h1>
+        <p>Доставка букетов по Москве и области бесплатно
+        Просмотрите наш каталог и оформите заказ на понравившийся вам букет.</p>
+
+        <!-- Кнопка входа для неавторизованных пользователей -->
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="login-btn">Войти</a>
+        {% else %}
+            <p>Вы вошли как {{ user.username }}.</p>
+            <!-- Здесь могут быть другие кнопки для взаимодействия с сайтом -->
+        {% endif %}
+
+        <div class="cart-info">
+            <span>Товары в корзине: {{ total_items }} шт</span>
+            <span>Сумма корзины: {{ total_price }} руб</span>
+            <a href="{% url 'cart' %}">Перейти в корзину</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Цикл для отображения карточек -->
+        {% for flower in flowers %}
+            <div class="flower-card">
+                <img src="{{ flower.image.url }}" alt="{{ flower.name }}">
+                <h3>{{ flower.name }}</h3>
+                <p>{{ flower.description }}</p>
+                <div class="price">{{ flower.price }} руб</div>
+                <a href="{% url 'add_to_cart' flower.id %}" class="btn">Добавить в корзину</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+</head>
+<body>
+    <h1>Ваша корзина</h1>
+    <ul>
+        {% for item in cart.items.all %}
+            <li>
+                {{ item.flower.name }} - {{ item.quantity }} шт.
+                ({{ item.flower.price }} руб.)
+                <a href="{% url 'remove_from_cart' item.id %}">Удалить</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>Итог: {{ cart.items.all|sum:'flower.price' }} руб.</p>
+    <a href="{% url 'confirm_order' %}">Оформить заказ</a>
+</body>
+</html>

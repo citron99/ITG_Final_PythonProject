@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет о продажах</title>
+</head>
+<body>
+    <h1>Отчет за {{ report.date }}</h1>
+    <table>
+        <tr>
+            <td><strong>Общее количество заказов</strong></td>
+            <td>{{ report.total_orders }}</td>
+        </tr>
+        <tr>
+            <td><strong>Общий объем продаж</strong></td>
+            <td>{{ report.total_sales }} руб</td>
+        </tr>
+        <tr>
+            <td><strong>Общий доход</strong></td>
+            <td>{{ report.total_revenue }} руб</td>
+        </tr>
+        <tr>
+            <td><strong>Общие расходы</strong></td>
+            <td>{{ report.total_expenses }} руб</td>
+        </tr>
+        <tr>
+            <td><strong>Прибыль</strong></td>
+            <td>{{ report.profit }} руб</td>
+        </tr>
+    </table>
+</body>
+</html>

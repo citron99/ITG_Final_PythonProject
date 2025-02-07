@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Оформление заказа</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Оформление заказа на букет {{ flower.name }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label>Дата доставки:</label>
+            <input type="date" name="delivery_date" required><br>
+            <label>Время доставки:</label>
+            <input type="time" name="delivery_time" required><br>
+            <label>Адрес доставки:</label>
+            <input type="text" name="address" required><br>
+            <button type="submit" class="btn">Оформить заказ</button>
+        </form>
+        <a href="{% url 'index' %}" class="btn-back">Вернуться на главную</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ flower.name }}</title>
+</head>
+<body>
+    <h1>{{ flower.name }}</h1>
+    <img src="{{ flower.image.url }}" alt="{{ flower.name }}">
+    <p>{{ flower.description }}</p>
+    <p>Цена: {{ flower.price }} руб</p>
+
+    <!-- Отображаем средний рейтинг -->
+    <p>Средний рейтинг: {{ average_rating|floatformat:1 }} / 5</p>
+
+    <h3>Отзывы:</h3>
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <strong>{{ review.user.username }}:</strong>
+                    <span>{{ review.rating }} / 5</span>
+                    <p>{{ review.comment }}</p>
+                    <hr>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет отзывов для этого букета.</p>
+    {% endif %}
+
+    <h3>Добавить отзыв:</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить отзыв</button>
+    </form>
+
+</body>
+</html>

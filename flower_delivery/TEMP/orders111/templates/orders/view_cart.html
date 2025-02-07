@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Цветочный рай</title>
+
+    {% load static %}
+
+    <h2>Ваша корзина</h2>
+<ul>
+    {% for item in cart_items %}
+        <li>
+            {{ item.flower.name }} - {{ item.quantity }} шт. - {{ item.total_price }} руб
+            <a href="{% url 'remove_from_cart' item.id %}">Удалить</a>
+        </li>
+    {% endfor %}
+</ul>
+<h3>Итого: {{ total_price }} руб</h3>
+<a href="{% url 'confirm_order' %}" class="btn">Оформить заказ</a>
+<a href="{% url 'index' %}" class="btn-back">Вернуться на главную</a>
